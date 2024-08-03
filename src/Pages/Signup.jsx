@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '../../store/auth';
+import bg from '../assets/back2.jpg'
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Signup = () => {
 
   const [data, setData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +25,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(`https://task-backend-m2ca.onrender.com/api/v1/user/signup`, data);
       const { token, userId } = response.data;
@@ -34,10 +37,18 @@ const Signup = () => {
       console.error("Error signing up:", err.response ? err.response.data : err.message);
       setError(err.response ? err.response.data.message : "Failed to sign up. Please try again.");
     }
+    setLoading(false);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 p-2">
+    <div className="min-h-screen flex relative">
+      {/* Left side with the image */}
+      <div className="w-1/2 hidden md:block relative opacity-100">
+        <img src={bg} alt="Background" className=" h-full w-full " />
+        <div className="absolute inset-0 bg-gradient-to-l from-gray-800 via-transparent to-transparent "></div>
+      </div>
+   {/* Right side with gradient background */}
+   <div className="w-full md:w-1/2 flex flex-col items-center justify-center bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 p-4">
       <div className="bg-gray-900 text-gray-100 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-3xl font-bold text-center mb-6">Sign Up</h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -82,7 +93,18 @@ const Signup = () => {
             />
           </div>
           <div className="flex justify-center">
-            <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2 rounded-md">Sign Up</button>
+            <button
+              type="submit"
+              className="bg-blue-600 hover:bg-blue-700 text-white w-full px-4 py-2 rounded-md flex items-center justify-center"
+              disabled={loading}
+            >
+              {loading ? (
+                <svg className="animate-spin h-5 w-5 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+              ) : 'Sign Up'}
+            </button>
           </div>
         </form>
         <div className="mt-6 text-center">
@@ -92,6 +114,9 @@ const Signup = () => {
           </p>
         </div>
       </div>
+      <p className=' text-gray-300 mt-2'>Made with 💛 by Vivek Kumar Mishra</p>
+
+    </div>
     </div>
   );
 };

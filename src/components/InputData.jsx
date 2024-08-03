@@ -62,7 +62,7 @@ const InputData = ({ inputDiv, setInputDiv, updatedData, setUpdatedData, onTaskS
                     </h2>
                     <form className='space-y-6' onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="title" className='block text-gray-400 mb-2'>Title</label>
+                            <label htmlFor="title" className='block text-gray-200 mb-2'>Title</label>
                             <input
                                 type="text"
                                 id="title"
@@ -75,7 +75,7 @@ const InputData = ({ inputDiv, setInputDiv, updatedData, setUpdatedData, onTaskS
                             />
                         </div>
                         <div>
-                            <label htmlFor="description" className='block text-gray-400 mb-2'>Description</label>
+                            <label htmlFor="description" className='block text-gray-200 mb-2'>Description</label>
                             <textarea
                                 id="description"
                                 name="description"

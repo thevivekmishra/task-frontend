@@ -5,6 +5,7 @@ import { HiUserAdd } from "react-icons/hi";
 import { useDispatch } from 'react-redux';
 import { authActions } from '../../store/auth';
 import axios from 'axios';
+import { FcAbout } from "react-icons/fc";
 
 const Sidebar = () => {
   const history = useNavigate();
@@ -31,7 +32,8 @@ const Sidebar = () => {
       title: "Incomplete Tasks",
       icon: <FaTimes className='text-red-500 text-2xl' />,
       link: "/incompletedtasks"
-    }
+    },
+
   ];
 
   const logout = () => {
@@ -93,11 +95,11 @@ const Sidebar = () => {
       <div className='mt-auto'>
 
       <Link
-          to="/login"
+          to="/about"
           className="flex items-center p-2 mb-4 rounded-lg cursor-pointer transition-colors duration-200 w-full text-left bg-green-600 hover:bg-green-700 text-white justify-center"
         >
-          <HiUserAdd  className='w-6 h-6 text-white' />
-          <span className="ml-3 hidden md:inline">Add</span>
+          <FcAbout  className='w-6 h-6 text-white' />
+          <span className="ml-3 hidden md:inline">About</span>
         </Link>
         <button
           onClick={logout}
